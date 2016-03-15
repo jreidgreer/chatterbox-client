@@ -3,9 +3,22 @@
 var app = {
   messages: '',
   server: 'https://api.parse.com/1/classes/messages',
+  
+  addMessage: function(message) {
+    var $container = $('<div class="chat"></div>');
+    var $name = $('<div class="username"></div>');
+    var $message = $('<div class="message"></div>');
+    $name.text(JSON.stringify(message.username));
+    $container.append($name);
+    $message.text(JSON.stringify(message.text));
+    $container.append($message);
+    $('#chats').append($container);
+  },
+  
   clearMessages: function() {
     $('#chats').empty();
   },
+  
   displayMessages: function() {
     this.clearMessages();
     for (var i = 0; i < this.messages.length; i++) {
@@ -14,16 +27,10 @@ var app = {
         current.text.length === 0 || current.username.length === 0) {
         continue;
       }
-      var $container = $('<div class="chat"></div>');
-      var $name = $('<div class="username"></div>');
-      var $message = $('<div class="message"></div>');
-      $name.text(JSON.stringify(current.username));
-      $container.append($name);
-      $message.text(JSON.stringify(current.text));
-      $container.append($message);
-      $('#chats').append($container);
+      this.addMessage(current);
     }
   },
+  
   fetch: function() {
     $.ajax({
       url: this.server,
@@ -38,8 +45,16 @@ var app = {
       }
     });
   },
+  
   init: function() {
+    setInterval( () => {
+      this.fetch();
+    }, 5000);
     this.fetch();
+    $('form').on('submit', function(event) {
+      event.preventDefault();
+      // $('form' > );
+    });
   },
 
   send: function(message) {
@@ -55,7 +70,8 @@ var app = {
         console.error('chatterbox: Failed to send message', data);
       }
     });
-  }
+  },
+
 
 };
 
