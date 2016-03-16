@@ -26,6 +26,12 @@ body {
     padding: 5px;
 }
 
+#main h5 {
+    display: inline;
+    margin: 0;
+    padding: 0r;
+}
+
 #main h1 span {
     font-style:italic;
 }
@@ -57,6 +63,7 @@ form {
 }
 
 form input[type=text] {
+    margin-top: 10px;
     margin-right: 10px;
     width: 70%;
     font-size: 12px;
@@ -71,6 +78,7 @@ form input[type=text] {
 
 .chat .username {
     font-weight: 800;
+    cursor: pointer;
 }
 
 .chat:hover {
@@ -85,4 +93,8 @@ form input[type=text] {
 
 .spinner img {
     padding: 10px;
+}
+
+.friend {
+    color: red;
 }
